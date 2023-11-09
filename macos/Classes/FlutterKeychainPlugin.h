@@ -1,4 +1,4 @@
-#import <Flutter/Flutter.h>
+#import <FlutterMacOS/FlutterMacOS>
 
 @interface FlutterKeychainPlugin : NSObject<FlutterPlugin>
 @end
