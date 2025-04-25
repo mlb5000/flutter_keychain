@@ -13,7 +13,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.math.BigInteger
 import java.nio.charset.Charset
 import java.security.*
@@ -286,6 +285,11 @@ class FlutterKeychainPlugin : FlutterPlugin, MethodCallHandler {
 
         lateinit private var encryptor: StringEncryptor
         lateinit private var preferences: SharedPreferences
+
+        fun registerWith(registrar: Registrar) {
+            val instance = FlutterInappPurchasePlugin()
+            instance.onAttached(registrar.context(), registrar.messenger())
+        }
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
