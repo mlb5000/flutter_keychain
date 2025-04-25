@@ -285,30 +285,6 @@ class FlutterKeychainPlugin : FlutterPlugin, MethodCallHandler {
 
         lateinit private var encryptor: StringEncryptor
         lateinit private var preferences: SharedPreferences
-
-        fun registerWith(registrar: Registrar) {
-            val instance = FlutterInappPurchasePlugin()
-            instance.onAttached(registrar.context(), registrar.messenger())
-        }
-
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-
-            try {
-                preferences = registrar.context()
-                    .getSharedPreferences("FlutterKeychain", Context.MODE_PRIVATE)
-                encryptor = AesStringEncryptor(
-                    preferences = preferences,
-                    keyWrapper = RsaKeyStoreKeyWrapper(registrar.context())
-                )
-
-                val instance = FlutterKeychainPlugin()
-                instance.channel = MethodChannel(registrar.messenger(), channelName)
-                instance.channel?.setMethodCallHandler(FlutterKeychainPlugin())
-            } catch (e: Exception) {
-                Log.e("flutter_keychain", "Could not register plugin", e)
-            }
-        }
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
